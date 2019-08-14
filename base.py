@@ -10,13 +10,14 @@ print('Hello Test!')
 normalTime = {}
 overTime = {}
 allTime = {}
-filename = 'C:/Users/Administrator/PycharmProjects/dataanalysis/data/test.csv'
 
 # 列表生成式
 # data_reader = csv.DictReader(open(filename,'r',encoding='UTF-8'))
 # data_rows = [d for d in data_reader]
 # print(data_rows[2].values())
 
+
+filename = 'C:/Users/nuaas/Desktop/test.csv'
 
 with open(filename,'r',encoding='UTF-8') as f:
     reader = csv.reader(f)
@@ -31,7 +32,7 @@ with open(filename,'r',encoding='UTF-8') as f:
     writeDaySum = {}
     peopleOrg = {}
     for row in reader:
-        if (row[10] == '按员工汇总')&(row[2]!=''):
+        if row[10] == '按员工汇总':
             # 获取员工编号
             userid = row[2]
             normalTime[userid] = float(row[13])
@@ -63,20 +64,44 @@ with open(filename,'r',encoding='UTF-8') as f:
             orgC += 1
         else:
             orgD += 1
+    # print(orgA)
     orgSum = [leaders-1,orgA+leaders-1,orgB+orgA+leaders-1,orgC+orgB+orgA+leaders-1,orgD+orgC+orgB+orgA+leaders-1]
-    print(orgSum[0])
-
-
+    # print(orgSum[0])
 
     # print(normalTime)
 # print(normalTime.keys())
 x = list(range(len(normalTime.keys())))
-print(x)
-print(normalTime.values())
+# print(x)
+# print(normalTime.values())
 
 array = np.array(list(allTime.values()))
 arrayMean = array.mean()
 arrayMax = array.max()
+
+avgData = []
+# AAA部门
+arrayAAA = array[:orgSum[0]+1]
+meanA = arrayAAA.mean()
+avgData.append(meanA)
+# AAA-001部门
+arrayAAA01 = array[orgSum[0]+1:orgSum[1]+1]
+meanA1 = arrayAAA01.mean()
+avgData.append(meanA1)
+# AAA-002部门
+arrayAAA02 = array[orgSum[1]+1:orgSum[2]+1]
+meanA2 = arrayAAA02.mean()
+avgData.append(meanA2)
+# AAA-003部门
+arrayAAA03 = array[orgSum[2]+1:orgSum[3]+1]
+meanA3 = arrayAAA03.mean()
+avgData.append(meanA3)
+# AAA-004部门
+arrayAAA04 = array[orgSum[3]+1:]
+meanA4 = arrayAAA04.mean()
+avgData.append(meanA4)
+plt.plot(orgSum,avgData)
+
+
 # plt.plot(x,list(normalTime.values()))
 # plt.scatter(x,list(normalTime.values()),s=10)
 # plt.plot(x,list(overTime.values()))
