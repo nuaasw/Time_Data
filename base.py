@@ -65,6 +65,14 @@ with open(filename,'r',encoding='UTF-8') as f:
         else:
             orgD += 1
     # print(orgA)
+    orgPeople = {}
+    orgPeople['AAA'] = leaders
+    orgPeople['AAA-1'] = orgA
+    orgPeople['AAA-2'] = orgB
+    orgPeople['AAA-3'] = orgC
+    orgPeople['AAA-4'] = orgD
+    plt.bar(orgPeople.keys(),orgPeople.values())
+
     orgSum = [leaders-1,orgA+leaders-1,orgB+orgA+leaders-1,orgC+orgB+orgA+leaders-1,orgD+orgC+orgB+orgA+leaders-1]
     # print(orgSum[0])
 
@@ -72,13 +80,14 @@ with open(filename,'r',encoding='UTF-8') as f:
 # print(normalTime.keys())
 x = list(range(len(normalTime.keys())))
 # print(x)
-# print(normalTime.values())
+# print(normalTime.values()
 
 arrayall = np.array(list(allTime.values()))
 arraynormal = np.array(list(normalTime.values()))
 arrayover = np.array(list(overTime.values()))
-# arrayMean = array.mean()
-# arrayMax = array.max()
+arrayMean = arrayover.mean()
+print(arrayMean)
+arrayMax = arrayall.max()
 
 arrays = [arrayall,arraynormal,arrayover]
 for array in arrays:
@@ -104,7 +113,7 @@ for array in arrays:
     meanA4 = arrayAAA04.mean()
     avgData.append(meanA4)
     # plt.plot(orgSum,avgData)
-    plt.bar(list(range(len(avgData))),avgData,tick_label=list(range(len(avgData))))
+    # plt.bar(list(range(len(avgData))),avgData,tick_label=list(range(len(avgData))))
 
 # plt.plot(x,list(normalTime.values()))
 # plt.scatter(x,list(normalTime.values()),s=10)
@@ -112,7 +121,7 @@ for array in arrays:
 # plt.scatter(x,list(overTime.values()),s=10)
 #
 # plt.plot(x,list(allTime.values()))
-# plt.scatter(x,list(allTime.values()),s=30)
+# plt.scatter(x,list(allTime.values()),s=10)
 # plt.plot([0,len(x)],[arrayMean,arrayMean])
 # plt.plot([orgSum[0],orgSum[0]],[0,arrayMax])
 # plt.plot([orgSum[1],orgSum[1]],[0,arrayMax])
