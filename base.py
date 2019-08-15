@@ -74,44 +74,49 @@ x = list(range(len(normalTime.keys())))
 # print(x)
 # print(normalTime.values())
 
-array = np.array(list(allTime.values()))
-arrayMean = array.mean()
-arrayMax = array.max()
+arrayall = np.array(list(allTime.values()))
+arraynormal = np.array(list(normalTime.values()))
+arrayover = np.array(list(overTime.values()))
+# arrayMean = array.mean()
+# arrayMax = array.max()
 
-avgData = []
-# AAA部门
-arrayAAA = array[:orgSum[0]+1]
-meanA = arrayAAA.mean()
-avgData.append(meanA)
-# AAA-001部门
-arrayAAA01 = array[orgSum[0]+1:orgSum[1]+1]
-meanA1 = arrayAAA01.mean()
-avgData.append(meanA1)
-# AAA-002部门
-arrayAAA02 = array[orgSum[1]+1:orgSum[2]+1]
-meanA2 = arrayAAA02.mean()
-avgData.append(meanA2)
-# AAA-003部门
-arrayAAA03 = array[orgSum[2]+1:orgSum[3]+1]
-meanA3 = arrayAAA03.mean()
-avgData.append(meanA3)
-# AAA-004部门
-arrayAAA04 = array[orgSum[3]+1:]
-meanA4 = arrayAAA04.mean()
-avgData.append(meanA4)
-plt.plot(orgSum,avgData)
-
+arrays = [arrayall,arraynormal,arrayover]
+for array in arrays:
+    avgData = []
+    # AAA部门
+    arrayAAA = array[:orgSum[0]+1]
+    meanA = arrayAAA.mean()
+    avgData.append(meanA)
+    # AAA-001部门
+    arrayAAA01 = array[orgSum[0] + 1:orgSum[1] + 1]
+    meanA1 = arrayAAA01.mean()
+    avgData.append(meanA1)
+    # AAA-002部门
+    arrayAAA02 = array[orgSum[1] + 1:orgSum[2] + 1]
+    meanA2 = arrayAAA02.mean()
+    avgData.append(meanA2)
+    # AAA-003部门
+    arrayAAA03 = array[orgSum[2] + 1:orgSum[3] + 1]
+    meanA3 = arrayAAA03.mean()
+    avgData.append(meanA3)
+    # AAA-004部门
+    arrayAAA04 = array[orgSum[3] + 1:]
+    meanA4 = arrayAAA04.mean()
+    avgData.append(meanA4)
+    # plt.plot(orgSum,avgData)
+    plt.bar(list(range(len(avgData))),avgData,tick_label=list(range(len(avgData))))
 
 # plt.plot(x,list(normalTime.values()))
 # plt.scatter(x,list(normalTime.values()),s=10)
 # plt.plot(x,list(overTime.values()))
 # plt.scatter(x,list(overTime.values()),s=10)
-plt.plot(x,list(allTime.values()))
-plt.scatter(x,list(allTime.values()),s=30)
-plt.plot([0,len(x)],[arrayMean,arrayMean])
-plt.plot([orgSum[0],orgSum[0]],[0,arrayMax])
-plt.plot([orgSum[1],orgSum[1]],[0,arrayMax])
-plt.plot([orgSum[2],orgSum[2]],[0,arrayMax])
-plt.plot([orgSum[3],orgSum[3]],[0,arrayMax])
-plt.plot([orgSum[4],orgSum[4]],[0,arrayMax])
+#
+# plt.plot(x,list(allTime.values()))
+# plt.scatter(x,list(allTime.values()),s=30)
+# plt.plot([0,len(x)],[arrayMean,arrayMean])
+# plt.plot([orgSum[0],orgSum[0]],[0,arrayMax])
+# plt.plot([orgSum[1],orgSum[1]],[0,arrayMax])
+# plt.plot([orgSum[2],orgSum[2]],[0,arrayMax])
+# plt.plot([orgSum[3],orgSum[3]],[0,arrayMax])
+# plt.plot([orgSum[4],orgSum[4]],[0,arrayMax])
 plt.show()
