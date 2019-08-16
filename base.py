@@ -25,12 +25,14 @@ with open(filename,'r',encoding='UTF-8') as f:
     ivalue = {}
     for index,value in enumerate(head_row):
         ivalue[index] = value
-    print(ivalue)
+    # print(ivalue)
     # 正常工时
     workerId = -1
     writeDayNum = 0
+    outDays = 0
     writeDaySum = {}
     peopleOrg = {}
+    outTime = []
     for row in reader:
         if row[10] == '按员工汇总':
             # 获取员工编号
@@ -38,14 +40,22 @@ with open(filename,'r',encoding='UTF-8') as f:
             normalTime[userid] = float(row[13])
             overTime[userid] = float(row[14])
             allTime[userid] = float(row[13])+float(row[14])
+            outTime.append(outDays)
+            outDays = 0
             # 获取各个部门人数
             peopleOrg[userid] = row[3]
             workerId += 1
             writeDaySum[workerId] = writeDayNum
             writeDayNum = 0
         else:
+            if row[12] == '出差工时':
+                outday = float(row[13])
+                outDays  += outday
             writeDayNum += 1
-
+    outTime.append(outDays)
+        # outTime.pop()
+    outTime.pop(0)
+    # print(outTime)
     # print(writeDaySum)
     leaders = 0
     orgA = 0
@@ -73,6 +83,8 @@ with open(filename,'r',encoding='UTF-8') as f:
     orgPeople['AAA-4'] = orgD
     plt.bar(orgPeople.keys(),orgPeople.values())
 
+    # plt.bar(orgPeople.keys(),list(outTime))
+
     orgSum = [leaders-1,orgA+leaders-1,orgB+orgA+leaders-1,orgC+orgB+orgA+leaders-1,orgD+orgC+orgB+orgA+leaders-1]
     # print(orgSum[0])
 
@@ -85,11 +97,14 @@ x = list(range(len(normalTime.keys())))
 arrayall = np.array(list(allTime.values()))
 arraynormal = np.array(list(normalTime.values()))
 arrayover = np.array(list(overTime.values()))
-arrayMean = arrayover.mean()
-print(arrayMean)
-arrayMax = arrayall.max()
-
-arrays = [arrayall,arraynormal,arrayover]
+arrayout = np.array(list(outTime))
+arrayMean = arrayout.mean()
+# print(arrayMean)
+arrayMax = arrayout.max()
+print(arrayMax)
+# print(len(arrayover))
+arrayout = arrayout + arrayover
+arrays = [arrayall,arrayout,arrayover]
 for array in arrays:
     avgData = []
     # AAA部门
@@ -113,7 +128,7 @@ for array in arrays:
     meanA4 = arrayAAA04.mean()
     avgData.append(meanA4)
     # plt.plot(orgSum,avgData)
-    # plt.bar(list(range(len(avgData))),avgData,tick_label=list(range(len(avgData))))
+    plt.bar(list(range(len(avgData))),avgData,tick_label=list(range(len(avgData))))
 
 # plt.plot(x,list(normalTime.values()))
 # plt.scatter(x,list(normalTime.values()),s=10)
