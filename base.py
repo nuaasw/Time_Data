@@ -3,13 +3,13 @@ import numpy as np
 import csv
 
 print('TimeData Project!')
-filename = 'C:/Users/Administrator/PycharmProjects/dataanalysis/data/test.csv'
+filename = 'C:/Users/nuaas/Desktop/test.csv'
 
 normalTime = {}
 overTime = {}
 allTime = {}
 
-with open(filename,'r') as f:
+with open(filename,'r',encoding='UTF-8') as f:
     reader = csv.reader(f)
     head_row = next(reader)
     ivalue = {}
@@ -68,8 +68,8 @@ with open(filename,'r') as f:
             orgD += 1
     # print(orgA)
     orgPeople = {}
-    orgPeople['AAA'] = leaders
-    orgPeople['AAA-00'] = orgoffice
+    orgPeople['AAA-A'] = leaders
+    orgPeople['AAA-O'] = orgoffice
     orgPeople['AAA-1'] = orgA
     orgPeople['AAA-2'] = orgB
     orgPeople['AAA-3'] = orgC
@@ -80,7 +80,7 @@ with open(filename,'r') as f:
     # plt.bar(orgPeople.keys(),list(outTime))
 
     orgSum = [leaders-1,orgoffice+leaders-1,orgA+orgoffice+leaders-1,orgB+orgA+leaders-1,orgC+orgB+orgA+leaders-1,orgD+orgC+orgB+orgA+leaders-1]
-    print(orgSum)
+    print(orgPeople)
     x = list(range(len(normalTime.keys())))
     arrayall = np.array(list(allTime.values()))
     arraynormal = np.array(list(normalTime.values()))
@@ -92,8 +92,7 @@ with open(filename,'r') as f:
     arrayMax = arrayout.max()
 
     # 绘制各部门总工时/加班工时/出差工时
-    arrayout = arrayout + arrayover
-    arrays = [arrayall, arrayout, arrayover]
+    arrays = [arrayall, arrayover]
     for array in arrays:
         avgData = []
         # AAA部门
@@ -101,7 +100,8 @@ with open(filename,'r') as f:
         meanA = arrayAAA.mean()
         avgData.append(meanA)
         # AAA OFFICE
-        arrayAAA00 = array[:orgSum[1] + 1]
+        arrayAAA00 = array[orgSum[0]+1:orgSum[1] + 1]
+        print(len(arrayAAA00))
         meanA0 = arrayAAA00.mean()
         avgData.append(meanA0)
         # AAA-001部门
@@ -126,14 +126,15 @@ with open(filename,'r') as f:
 
     plt.show()
 
-        # plt.plot(x,list(normalTime.values()))
-        # plt.scatter(x,list(normalTime.values()),s=10)
+    plt.plot(x,list(outTime))
+    plt.scatter(x,list(outTime),s=10)
+    plt.plot([0,len(x)],[arrayMean,arrayMean])
+    plt.show()
         # plt.plot(x,list(overTime.values()))
         # plt.scatter(x,list(overTime.values()),s=10)
 
         # plt.plot(x,list(allTime.values()))
         # plt.scatter(x,list(allTime.values()),s=10)
-        # plt.plot([0,len(x)],[arrayMean,arrayMean])
         # plt.plot([orgSum[0],orgSum[0]],[0,arrayMax])
         # plt.plot([orgSum[1],orgSum[1]],[0,arrayMax])
         # plt.plot([orgSum[2],orgSum[2]],[0,arrayMax])
