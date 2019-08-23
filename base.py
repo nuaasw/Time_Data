@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
+
 print('TimeData Project!')
-filename = 'C:/Users/nuaas/Desktop/test.csv'
+filename = '../test.csv'
 
 normalTime = {}
 overTime = {}
@@ -43,7 +44,35 @@ with open(filename,'r',encoding='UTF-8') as f:
             writeDayNum += 1
     outTime.append(outDays)
     outTime.pop(0)
+
+    # 个人数据可视化
+    x = list(range(len(normalTime.keys())))
+    arrayall = np.array(list(allTime.values()))
+    arraynormal = np.array(list(normalTime.values()))
+    arrayover = np.array(list(overTime.values()))
+    arrayout = np.array(list(outTime))
+    # 计算个人100小时KPI
+    array100h = arrayover + arrayout
+    # 计算平均出差工时数据
+    arrayMean = array100h.mean()
+    arrayMax = array100h.max()
+    print(arrayMean)
+    print(arrayMax)
+
+    plt.bar(x, arrayall)
+    # plt.scatter(x, array100h, s=10)
+    plt.bar(x,arrayout)
+    # plt.scatter(x,array100h,s=10)
+    plt.plot([0,len(x)],[300,300])
+    plt.show()
+    # plt.plot(x,list(overTime.values()))
+    # plt.scatter(x,list(overTime.values()),s=10)
+
+    # plt.plot(x,list(allTime.values()))
+    # plt.scatter(x,list(allTime.values()),s=10)
     # print(writeDaySum)
+
+
 
     # 计算各部门工时数据
     leaders = 0
@@ -66,7 +95,7 @@ with open(filename,'r',encoding='UTF-8') as f:
             orgC += 1
         else:
             orgD += 1
-    # print(orgA)
+
     orgPeople = {}
     orgPeople['AAA-A'] = leaders
     orgPeople['AAA-O'] = orgoffice
@@ -74,28 +103,16 @@ with open(filename,'r',encoding='UTF-8') as f:
     orgPeople['AAA-2'] = orgB
     orgPeople['AAA-3'] = orgC
     orgPeople['AAA-4'] = orgD
+
     # plt.bar(orgPeople.keys(),orgPeople.values())
-    plt.bar(list(orgPeople.keys()),list(orgPeople.values()))
-    plt.show()
-    # plt.bar(orgPeople.keys(),list(outTime))
+    # plt.bar(list(orgPeople.keys()),list(orgPeople.values()))
+    # plt.show()
 
     orgSum = [leaders-1,orgoffice+leaders-1,orgA+orgoffice+leaders-1,orgB+orgA+leaders-1,orgC+orgB+orgA+leaders-1,orgD+orgC+orgB+orgA+leaders-1]
     print(orgPeople)
-    x = list(range(len(normalTime.keys())))
-    arrayall = np.array(list(allTime.values()))
-    arraynormal = np.array(list(normalTime.values()))
-    arrayover = np.array(list(overTime.values()))
-    arrayout = np.array(list(outTime))
-    # 计算个人100小时KPI
-    array100h = arrayover + arrayout
-    # 计算平均出差工时数据
-    arrayMean = array100h.mean()
-    arrayMax = array100h.max()
-    print(arrayMean/3.0)
-    print(arrayMax/3.0)
 
     # 绘制各部门总工时/加班工时/出差工时
-    arrays = [arrayall, arrayover]
+    arrays = [arrayall, array100h]
     for array in arrays:
         avgData = []
         # AAA部门
@@ -129,21 +146,6 @@ with open(filename,'r',encoding='UTF-8') as f:
 
     plt.show()
 
-    plt.plot(x,list(outTime))
-    plt.scatter(x,list(outTime),s=10)
-    plt.plot([0,len(x)],[arrayMean,arrayMean])
-    plt.show()
-        # plt.plot(x,list(overTime.values()))
-        # plt.scatter(x,list(overTime.values()),s=10)
-
-        # plt.plot(x,list(allTime.values()))
-        # plt.scatter(x,list(allTime.values()),s=10)
-        # plt.plot([orgSum[0],orgSum[0]],[0,arrayMax])
-        # plt.plot([orgSum[1],orgSum[1]],[0,arrayMax])
-        # plt.plot([orgSum[2],orgSum[2]],[0,arrayMax])
-        # plt.plot([orgSum[3],orgSum[3]],[0,arrayMax])
-        # plt.plot([orgSum[4],orgSum[4]],[0,arrayMax])
-        # plt.show()
 
 
 
