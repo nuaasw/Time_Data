@@ -86,10 +86,13 @@ with open(filename,'r',encoding='UTF-8') as f:
     arraynormal = np.array(list(normalTime.values()))
     arrayover = np.array(list(overTime.values()))
     arrayout = np.array(list(outTime))
-
+    # 计算个人100小时KPI
+    array100h = arrayover + arrayout
     # 计算平均出差工时数据
-    arrayMean = arrayout.mean()
-    arrayMax = arrayout.max()
+    arrayMean = array100h.mean()
+    arrayMax = array100h.max()
+    print(arrayMean/3.0)
+    print(arrayMax/3.0)
 
     # 绘制各部门总工时/加班工时/出差工时
     arrays = [arrayall, arrayover]
