@@ -6,7 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+import os,sys
+from PyQt5 import QtCore,QtGui,QtWidgets
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -22,8 +23,16 @@ class Ui_Dialog(object):
         self.buttonBox.accepted.connect(Dialog.accept)
         self.buttonBox.rejected.connect(Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+    #   显示Qt界面
+        Dialog.show()
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
 
+if __name__=='__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    w = QtWidgets.QWidget()
+    ui = Ui_Dialog()
+    ui.setupUi(w)
+    sys.exit(app.exec_())
