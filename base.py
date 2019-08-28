@@ -61,7 +61,7 @@ with open(filename,'r',encoding='UTF-8') as f:
 
     plt.bar(x, arrayall)
     # plt.scatter(x, array100h, s=10)
-    plt.bar(x,arrayout)
+    plt.bar(x,array100h)
     # plt.scatter(x,array100h,s=10)
     plt.plot([0,len(x)],[300,300])
     plt.show()

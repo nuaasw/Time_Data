@@ -11,7 +11,11 @@ from PyQt5 import QtCore,QtGui,QtWidgets
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
+        """
+
+        :type Dialog: object
+        """
+        Dialog.setObjectName("Hello World!")
         Dialog.resize(400, 300)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(30, 240, 341, 32))
@@ -19,9 +23,13 @@ class Ui_Dialog(object):
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
 
+        self.inputBox = QtWidgets.QDialogButtonBox(Dialog)
+        self.inputBox.setGeometry(QtCore.QRect(10,10,200,20))
+        self.inputBox.setObjectName("hello")
+
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
+        self.buttonBox.accepted.connect(Dialog.close)
+        self.buttonBox.rejected.connect(self.printSuccess)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
     #   显示Qt界面
         Dialog.show()
@@ -29,6 +37,9 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+
+    def printSuccess(self):
+        print('Success!')
 
 if __name__=='__main__':
     app = QtWidgets.QApplication(sys.argv)
