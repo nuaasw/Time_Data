@@ -147,7 +147,7 @@ class TimeData():
                 # plt.plot(orgSum,avgData)
                 # plt.bar(list(orgPeople.keys()), avgData)
                 # plt.bar(list(range(len(avgData))), avgData, tick_label=list(range(len(avgData))))
-
+            # plt.save()
             plt.show()
 
 

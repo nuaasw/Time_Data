@@ -9,7 +9,7 @@
 import os,sys
 from PyQt5 import  QtCore,QtWidgets,QtGui
 from PyQt5.QtCore import Qt,pyqtSignal
-from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QPushButton,QLabel
 from PyQt5.QtGui import QFont
 
 from base import TimeData as ays
@@ -19,26 +19,33 @@ class Ui_Dialog(object):
         :type Dialog: object
         """
         Dialog.setObjectName("Hello World!")
-        Dialog.resize(400, 300)
-        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(30, 240, 341, 32))
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
+        Dialog.resize(600, 400)
 
-        self.inputBox = QPushButton("&出差工时比",Dialog)
-        self.inputBox.setFont(QFont('黑体',10))
-        # self.inputBox.setEnabled(1)
-        self.inputBox.setGeometry(QtCore.QRect(30,50,100,50))
-        self.inputBox.clicked.connect(ays.timeDataAys)
+        self.allButton = QPushButton("&出差工时比",Dialog)
+
+        self.allButton.setFont(QFont('黑体',10))
+        self.allButton.setGeometry(QtCore.QRect(400,180,150,30))
+        self.allButton.clicked.connect(ays.timeDataAys)
+
+        self.closeButton = QPushButton("&Close",Dialog)
+        self.closeButton.setFont(QFont('黑体',10))
+        self.closeButton.setGeometry(QtCore.QRect(400,220,150,30))
+        self.closeButton.clicked.connect(self.textChanged)
+
+        self.showLabel = QLabel(Dialog)
+        self.showLabel.setText("Hello")
+        self.showLabel.setGeometry(QtCore.QRect(10,10,400,400))
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.close)
-        self.buttonBox.rejected.connect(self.printSuccess)
+        # self.buttonBox.accepted.connect(self.printSuccess)
+        # self.buttonBox.rejected.connect(Dialog.close)
 
         QtCore.QMetaObject.connectSlotsByName(Dialog)
     #   显示Qt界面
         Dialog.show()
+
+    def textChanged(self,Dialog):
+        self.showLabel.setText("Go!")
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
