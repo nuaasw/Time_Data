@@ -4,13 +4,13 @@ import csv
 
 
 print('TimeData Project!')
-filename = '../test.csv'
+filename = './test.csv'
 
 normalTime = {}
 overTime = {}
 allTime = {}
 
-with open(filename,'r',encoding='UTF-8') as f:
+with open(filename,'r') as f:
     reader = csv.reader(f)
     head_row = next(reader)
     ivalue = {}

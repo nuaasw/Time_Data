@@ -8,11 +8,12 @@
 
 import os,sys
 from PyQt5 import QtCore,QtGui,QtWidgets
-
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QDialog, QFrame,
+    QGridLayout, QHBoxLayout, QLabel, QLayout, QLineEdit,
+    QPushButton, QVBoxLayout)
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         """
-
         :type Dialog: object
         """
         Dialog.setObjectName("Hello World!")
@@ -23,13 +24,14 @@ class Ui_Dialog(object):
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
 
-        self.inputBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.inputBox.setGeometry(QtCore.QRect(10,10,200,20))
-        self.inputBox.setObjectName("hello")
+        self.inputBox = QPushButton(Dialog)
+        self.inputBox.setEnabled(1)
+        self.inputBox.setGeometry(QtCore.QRect(30,50,100,50))
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.close)
         self.buttonBox.rejected.connect(self.printSuccess)
+
         QtCore.QMetaObject.connectSlotsByName(Dialog)
     #   显示Qt界面
         Dialog.show()
