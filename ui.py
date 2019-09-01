@@ -7,10 +7,12 @@
 # WARNING! All changes made in this file will be lost!
 
 import os,sys
-from PyQt5 import QtCore,QtGui,QtWidgets
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QDialog, QFrame,
-    QGridLayout, QHBoxLayout, QLabel, QLayout, QLineEdit,
-    QPushButton, QVBoxLayout)
+from PyQt5 import  QtCore,QtWidgets,QtGui
+from PyQt5.QtCore import Qt,pyqtSignal
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtGui import QFont
+
+from base import TimeData as ays
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         """
@@ -24,9 +26,11 @@ class Ui_Dialog(object):
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
 
-        self.inputBox = QPushButton(Dialog)
-        self.inputBox.setEnabled(1)
+        self.inputBox = QPushButton("&出差工时比",Dialog)
+        self.inputBox.setFont(QFont('黑体',10))
+        # self.inputBox.setEnabled(1)
         self.inputBox.setGeometry(QtCore.QRect(30,50,100,50))
+        self.inputBox.clicked.connect(ays.timeDataAys)
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.close)
