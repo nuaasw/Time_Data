@@ -3,11 +3,11 @@ import numpy as np
 import csv
 
 class TimeData():
-    def __init__(self):
-        pass
+    def __init__(self,filenames):
+        self.filenames = filenames
 
-    def projetcName():
-        print('TimeData Project!')
+    def projectName(self):
+        print('Hello')
 
     def timeDataAys():
         filename = './test.csv'
