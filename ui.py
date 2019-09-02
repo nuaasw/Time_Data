@@ -11,11 +11,15 @@ from PyQt5 import  QtCore,QtWidgets,QtGui
 from PyQt5.QtCore import Qt,pyqtSignal
 from PyQt5.QtWidgets import QPushButton as button
 from PyQt5.QtWidgets import QLabel as label
+from PyQt5.QtWidgets import QLineEdit as lineedit
 from PyQt5.QtGui import QFont as font
 
 from base import TimeData as ays
 
 class Ui_Dialog(object):
+    def __init__(self,name= ' '):
+        self.name = name
+
     def setupUi(self, Dialog):
         """
         :type Dialog: object
@@ -27,8 +31,10 @@ class Ui_Dialog(object):
 
         self.allButton.setFont(font('黑体',10))
         self.allButton.setGeometry(QtCore.QRect(400,180,150,30))
-        # dataays = ays('Hello')
-        self.allButton.clicked.connect(ays.timeDataAys)
+        # dataays = ays('HelloTest')
+
+        self.allButton.clicked.connect(self.testJob)
+
 
         self.closeButton = button("&Close",Dialog)
         self.closeButton.setFont(font('黑体',10))
@@ -39,6 +45,9 @@ class Ui_Dialog(object):
         self.showLabel.setText("Hello")
         self.showLabel.setGeometry(QtCore.QRect(10,10,400,400))
 
+        self.lineedit_1 = lineedit(Dialog)
+        self.lineedit_1.setGeometry(QtCore.QRect(400,120,150,30))
+        self.lineedit_1.setText('./test.csv')
 
         self.retranslateUi(Dialog)
         # self.buttonBox.accepted.connect(self.printSuccess)
@@ -57,6 +66,14 @@ class Ui_Dialog(object):
 
     def printSuccess(self):
         print('Success!')
+
+    def testJob(self):
+        print(self.lineedit_1.text())
+        dataays = ays(self.lineedit_1.text())
+        print(dataays.getFilename())
+        dataays.timeDataAys()
+        # self.lineedit_1.setText(self.name)
+        # print(self.name)
 
 if __name__=='__main__':
     app = QtWidgets.QApplication(sys.argv)

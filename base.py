@@ -4,18 +4,22 @@ import csv
 
 class TimeData():
     def __init__(self,filenames):
-        self.filenames = filenames
+        self.filename = filenames
 
-    def projectName(self):
-        print('Hello')
+    def getFilename(self):
+        return self.filename
 
-    def timeDataAys():
-        filename = './test.csv'
+    def setFilename(self,filename):
+        self.filename = filename
+        return  self.filename
+
+    def timeDataAys(self):
+        # filename = './test.csv'
         normalTime = {}
         overTime = {}
         allTime = {}
 
-        with open(filename, 'r') as f:
+        with open(self.filename, 'r') as f:
             reader = csv.reader(f)
             head_row = next(reader)
             ivalue = {}
