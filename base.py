@@ -104,15 +104,17 @@ class TimeData():
             else:
                 orgD += 1
         orgPeople = {}
-        orgPeople['AAA-A'] = leaders
-        orgPeople['AAA-O'] = orgoffice
-        orgPeople['AAA-1'] = orgA
-        orgPeople['AAA-2'] = orgB
-        orgPeople['AAA-3'] = orgC
-        orgPeople['AAA-4'] = orgD
+        orgPeople['Leader'] = leaders
+        orgPeople['LeaderAst'] = orgoffice
+        orgPeople['Part1'] = orgA
+        orgPeople['Part2'] = orgB
+        orgPeople['Part3'] = orgC
+        orgPeople['Part4'] = orgD
         return orgPeople
 
-    def getOrgImg(self,orgPeople):
+    def getOrgImg(self,orgPeople={}):
+        plt.bar(orgPeople.keys(),orgPeople.values())
+        plt.show()
 
 
     def calTimeDate(self,arrayData):

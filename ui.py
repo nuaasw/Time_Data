@@ -75,6 +75,7 @@ class Ui_Dialog(object):
         self.dataResult = dataays.timeDataAys()
         self.orgPeople = dataays.calOrgData(self.dataResult[1])
         self.showLabel.setText('数据预处理成功！')
+        dataays.getOrgImg(self.orgPeople)
         # self.lineedit_1.setText(self.orgPeople.value(1))
 
 if __name__=='__main__':
