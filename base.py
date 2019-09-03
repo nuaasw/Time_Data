@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import csv
+from csv import DictReader
 
 class TimeData():
     def __init__(self,filenames):
@@ -18,6 +19,11 @@ class TimeData():
         normalTime = {}
         overTime = {}
         allTime = {}
+
+        # timedatas = DictReader(open(self.filename,'r'))
+        # datas = [d for d in timedatas]
+        # print(datas[0])
+        #
 
         with open(self.filename, 'r') as f:
             reader = csv.reader(f)
