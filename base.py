@@ -3,9 +3,13 @@ import numpy as np
 import csv
 from csv import DictReader
 
+#工时数据分析函数
+# shen_wei 09/03
+
 class TimeData():
     def __init__(self,filenames):
         self.filename = filenames
+        self.arrayTimes = []
 
     def getFilename(self):
         return self.filename
@@ -15,16 +19,9 @@ class TimeData():
         return  self.filename
 
     def timeDataAys(self):
-        # filename = './test.csv'
         normalTime = {}
         overTime = {}
         allTime = {}
-
-        # timedatas = DictReader(open(self.filename,'r'))
-        # datas = [d for d in timedatas]
-        # print(datas[0])
-        #
-
         with open(self.filename, 'r') as f:
             reader = csv.reader(f)
             head_row = next(reader)
@@ -68,97 +65,124 @@ class TimeData():
             arrayout = np.array(list(outTime))
             # 计算个人100小时KPI
             array100h = arrayover + arrayout
-            # 计算平均出差工时数据
-            arrayMean = array100h.mean()
-            arrayMax = array100h.max()
-            print(arrayMean)
-            print(arrayMax)
 
-            plt.bar(x, arrayall)
-            # plt.scatter(x, array100h, s=10)
-            plt.bar(x, array100h)
-            # plt.scatter(x,array100h,s=10)
-            plt.plot([0, len(x)], [300, 300])
-            # plt.show()
-            # plt.plot(x,list(overTime.values()))
-            # plt.scatter(x,list(overTime.values()),s=10)
 
-            # plt.plot(x,list(allTime.values()))
-            # plt.scatter(x,list(allTime.values()),s=10)
-            # print(writeDaySum)
+            #员工编号
+            self.arrayTimes.append(peopleOrg.keys())
+            #员工部门
+            self.arrayTimes.append(peopleOrg.values())
+            self.arrayTimes.append(arrayall)
+            self.arrayTimes.append(arraynormal)
+            self.arrayTimes.append(arrayover)
+            self.arrayTimes.append(arrayout)
+            return self.arrayTimes
 
-            # 计算各部门工时数据
-            leaders = 0
-            orgoffice = 0
-            orgA = 0
-            orgB = 0
-            orgC = 0
-            orgD = 0
-            # print(peopleOrg.values())
-            for org in peopleOrg.values():
-                if org == 'AAA':
-                    leaders += 1
-                elif org == 'AAA-00':
-                    orgoffice += 1
-                elif org == 'AAA-01':
-                    orgA += 1
-                elif org == 'AAA-02':
-                    orgB += 1
-                elif org == 'AAA-03':
-                    orgC += 1
-                else:
-                    orgD += 1
+    def calOrgData(self,arrayData):
+        peopleOrg = {}
+        for num,data in enumerate(arrayData):
+            peopleOrg[num] = data
+        # print(peopleOrg)
+        # 计算各部门工时数据
+        leaders = 0
+        orgoffice = 0
+        orgA = 0
+        orgB = 0
+        orgC = 0
+        orgD = 0
+        # print(peopleOrg.values())
+        for org in peopleOrg.values():
+            if org == 'AAA':
+                leaders += 1
+            elif org == 'AAA-00':
+                orgoffice += 1
+            elif org == 'AAA-01':
+                orgA += 1
+            elif org == 'AAA-02':
+                orgB += 1
+            elif org == 'AAA-03':
+                orgC += 1
+            else:
+                orgD += 1
+        orgPeople = {}
+        orgPeople['AAA-A'] = leaders
+        orgPeople['AAA-O'] = orgoffice
+        orgPeople['AAA-1'] = orgA
+        orgPeople['AAA-2'] = orgB
+        orgPeople['AAA-3'] = orgC
+        orgPeople['AAA-4'] = orgD
+        return orgPeople
 
-            orgPeople = {}
-            orgPeople['AAA-A'] = leaders
-            orgPeople['AAA-O'] = orgoffice
-            orgPeople['AAA-1'] = orgA
-            orgPeople['AAA-2'] = orgB
-            orgPeople['AAA-3'] = orgC
-            orgPeople['AAA-4'] = orgD
+    def getOrgImg(self,orgPeople):
 
-            # plt.bar(orgPeople.keys(),orgPeople.values())
-            # plt.bar(list(orgPeople.keys()),list(orgPeople.values()))
-            # plt.show()
 
-            orgSum = [leaders - 1, orgoffice + leaders - 1, orgA + orgoffice + leaders - 1, orgB + orgA + leaders - 1,
-                      orgC + orgB + orgA + leaders - 1, orgD + orgC + orgB + orgA + leaders - 1]
-            # print(orgPeople)
+    def calTimeDate(self,arrayData):
+        array100h = arrayData[2] + arrayData[3]
+        arrayall = arrayData[0]
+        # 计算平均出差工时数据
+        arrayMean = array100h.mean()
+        arrayMax = array100h.max()
+        print(arrayMean)
+        print(arrayMax)
 
-            # 绘制各部门总工时/加班工时/出差工时
-            arrays = [arrayall, array100h]
-            for array in arrays:
-                avgData = []
-                # AAA部门
-                arrayAAA = array[:orgSum[0] + 1]
-                meanA = arrayAAA.mean()
-                avgData.append(meanA)
-                # AAA OFFICE
-                arrayAAA00 = array[orgSum[0] + 1:orgSum[1] + 1]
-                print(len(arrayAAA00))
-                meanA0 = arrayAAA00.mean()
-                avgData.append(meanA0)
-                # AAA-001部门
-                arrayAAA01 = array[orgSum[1] + 1:orgSum[2] + 1]
-                meanA1 = arrayAAA01.mean()
-                avgData.append(meanA1)
-                # AAA-002部门
-                arrayAAA02 = array[orgSum[2] + 1:orgSum[3] + 1]
-                meanA2 = arrayAAA02.mean()
-                avgData.append(meanA2)
-                # AAA-003部门
-                arrayAAA03 = array[orgSum[3] + 1:orgSum[4] + 1]
-                meanA3 = arrayAAA03.mean()
-                avgData.append(meanA3)
-                # AAA-004部门
-                arrayAAA04 = array[orgSum[4] + 1:]
-                meanA4 = arrayAAA04.mean()
-                avgData.append(meanA4)
-                # plt.plot(orgSum,avgData)
-                # plt.bar(list(orgPeople.keys()), avgData)
-                # plt.bar(list(range(len(avgData))), avgData, tick_label=list(range(len(avgData))))
-            # plt.save()
-            plt.show()
+        plt.bar(x, arrayall)
+        # plt.scatter(x, array100h, s=10)
+        plt.bar(x, array100h)
+        # plt.scatter(x,array100h,s=10)
+        plt.plot([0, len(x)], [300, 300])
+        # plt.show()
+        # plt.plot(x,list(overTime.values()))
+        # plt.scatter(x,list(overTime.values()),s=10)
+
+        # plt.plot(x,list(allTime.values()))
+        # plt.scatter(x,list(allTime.values()),s=10)
+        # print(writeDaySum)
+
+
+
+        # plt.bar(orgPeople.keys(),orgPeople.values())
+        # plt.bar(list(orgPeople.keys()),list(orgPeople.values()))
+        # plt.show()
+
+        orgSum = [leaders - 1, orgoffice + leaders - 1, orgA + orgoffice + leaders - 1, orgB + orgA + leaders - 1,
+                  orgC + orgB + orgA + leaders - 1, orgD + orgC + orgB + orgA + leaders - 1]
+        # print(orgPeople)
+
+        # 绘制各部门总工时/加班工时/出差工时
+        arrays = [arrayall, array100h]
+        for array in arrays:
+            avgData = []
+            # AAA部门
+            arrayAAA = array[:orgSum[0] + 1]
+            meanA = arrayAAA.mean()
+            avgData.append(meanA)
+            # AAA OFFICE
+            arrayAAA00 = array[orgSum[0] + 1:orgSum[1] + 1]
+            print(len(arrayAAA00))
+            meanA0 = arrayAAA00.mean()
+            avgData.append(meanA0)
+            # AAA-001部门
+            arrayAAA01 = array[orgSum[1] + 1:orgSum[2] + 1]
+            meanA1 = arrayAAA01.mean()
+            avgData.append(meanA1)
+            # AAA-002部门
+            arrayAAA02 = array[orgSum[2] + 1:orgSum[3] + 1]
+            meanA2 = arrayAAA02.mean()
+            avgData.append(meanA2)
+            # AAA-003部门
+            arrayAAA03 = array[orgSum[3] + 1:orgSum[4] + 1]
+            meanA3 = arrayAAA03.mean()
+            avgData.append(meanA3)
+            # AAA-004部门
+            arrayAAA04 = array[orgSum[4] + 1:]
+            meanA4 = arrayAAA04.mean()
+            avgData.append(meanA4)
+            # plt.plot(orgSum,avgData)
+            # plt.bar(list(orgPeople.keys()), avgData)
+            # plt.bar(list(range(len(avgData))), avgData, tick_label=list(range(len(avgData))))
+        # plt.save()
+        plt.show()
+
+
 
 
 
