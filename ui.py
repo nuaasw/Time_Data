@@ -12,15 +12,21 @@ from PyQt5.QtCore import Qt,pyqtSignal
 from PyQt5.QtWidgets import QPushButton as button
 from PyQt5.QtWidgets import QLabel as label
 from PyQt5.QtWidgets import QLineEdit as lineedit
+from PyQt5.QtWidgets import QVBoxLayout,QWidget
 from PyQt5.QtGui import QFont as font
+from drawplt import MyMplCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 from base import TimeData as ays
 
-class Ui_Dialog(object):
-    def __init__(self,name= ' '):
+class Ui_Dialog(QWidget):
+    def __init__(self,name= ' ',parent=None):
+        super(Ui_Dialog, self).__init__(parent)
+
         self.name = name
         self.dataResult = []
         self.orgPeople = {}
+
 
     def setupUi(self, Dialog):
         """
@@ -28,6 +34,15 @@ class Ui_Dialog(object):
         """
         Dialog.setObjectName("Hello World!")
         Dialog.resize(600, 400)
+
+        self.layout = QVBoxLayout(self)
+        self.mpl = MyMplCanvas(self, width=5, height=4, dpi=100)
+        self.mpl.start_static_plot() # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
+        self.mpl_ntb = NavigationToolbar(self.mpl, self)  # 添加完整的 toolbar
+
+        self.layout.addWidget(self.mpl)
+        self.layout.addWidget(self.mpl_ntb)
+
 
         self.allButton = button("&Calculate",Dialog)
 
