@@ -34,7 +34,6 @@ class Ui_Dialog(QWidget):
         """
         :type Dialog: object
         """
-        # Dialog.setObjectName("Hello World!")
         Dialog.resize(800, 500)
 
         self.layout = QVBoxLayout(Dialog)
@@ -66,11 +65,7 @@ class Ui_Dialog(QWidget):
         self.lineedit_1.setText('./test.csv')
 
         self.retranslateUi(Dialog)
-        # self.buttonBox.accepted.connect(self.printSuccess)
-        # self.buttonBox.rejected.connect(Dialog.close)
-
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-    #   显示Qt界面
         Dialog.show()
 
     def textChanged(self,Dialog):
@@ -88,10 +83,9 @@ class Ui_Dialog(QWidget):
         self.dataResult = dataays.timeDataAys()
         self.orgPeople = dataays.calOrgData(self.dataResult[1])
         self.showLabel.setText('数据预处理成功！')
-        # dataays.getOrgImg(self.orgPeople)
-        self.mpl.start_static_plot(self.orgPeople) # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
+        # self.mpl.start_static_plot(self.orgPeople)
+        self.mpl.start_static_plot(list(self.dataResult[0]),self.dataResult[2])
         print('test')
-        # self.lineedit_1.setText(self.orgPeople.value(1))
 
 if __name__=='__main__':
     app = QtWidgets.QApplication(sys.argv)

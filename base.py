@@ -73,8 +73,9 @@ class TimeData():
             self.arrayTimes.append(arrayall)
             # 正常工时
             self.arrayTimes.append(arraynormal)
-            #
+            # 加班工时
             self.arrayTimes.append(arrayover)
+            # 出差工时
             self.arrayTimes.append(arrayout)
             return self.arrayTimes
 
@@ -128,24 +129,8 @@ class TimeData():
         print(arrayMax)
 
         plt.bar(x, arrayall)
-        # plt.scatter(x, array100h, s=10)
         plt.bar(x, array100h)
-        # plt.scatter(x,array100h,s=10)
         plt.plot([0, len(x)], [300, 300])
-        # plt.show()
-        # plt.plot(x,list(overTime.values()))
-        # plt.scatter(x,list(overTime.values()),s=10)
-
-        # plt.plot(x,list(allTime.values()))
-        # plt.scatter(x,list(allTime.values()),s=10)
-        # print(writeDaySum)
-
-
-
-        # plt.bar(orgPeople.keys(),orgPeople.values())
-        # plt.bar(list(orgPeople.keys()),list(orgPeople.values()))
-        # plt.show()
-
         orgSum = [leaders - 1, orgoffice + leaders - 1, orgA + orgoffice + leaders - 1, orgB + orgA + leaders - 1,
                   orgC + orgB + orgA + leaders - 1, orgD + orgC + orgB + orgA + leaders - 1]
         # print(orgPeople)
