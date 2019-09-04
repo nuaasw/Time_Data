@@ -65,17 +65,17 @@ class TimeData():
             # 计算个人100小时KPI
             array100h = arrayover + arrayout
 
-            # 员工编号
+            # 员工编号 0
             self.arrayTimes.append(peopleOrg.keys())
-            # 员工部门
+            # 员工部门 1
             self.arrayTimes.append(peopleOrg.values())
-            # 总工时
+            # 总工时   2
             self.arrayTimes.append(arrayall)
-            # 正常工时
+            # 正常工时 3
             self.arrayTimes.append(arraynormal)
-            # 加班工时
+            # 加班工时 4
             self.arrayTimes.append(arrayover)
-            # 出差工时
+            # 出差工时 5
             self.arrayTimes.append(arrayout)
             return self.arrayTimes
 

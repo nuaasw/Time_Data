@@ -24,7 +24,7 @@ class MyMplCanvas(FigureCanvas):
         # plt.show()
         self.fig = Figure(figsize=(width, height), dpi=dpi)  # 新建一个figure
         self.axes = self.fig.add_subplot(111)  # 建立一个子图，如果要建立复合图，可以在这里修改
-        self.fig.suptitle('工时数据分析')
+        # self.fig.suptitle('工时数据分析')
 
         # self.axes.hold(False)  # 每次绘图的时候不保留上一次绘图的结果
 
@@ -32,7 +32,7 @@ class MyMplCanvas(FigureCanvas):
         self.setParent(parent)
 
         '''定义FigureCanvas的尺寸策略，这部分的意思是设置FigureCanvas，使之尽可能的向外填充空间。'''
-        # FigureCanvas.setSizePolicy(self,
+        FigureCanvas.setSizePolicy(self,8,6)
                                    # QSizePolicy.Expanding,
                                    # QSizePolicy.Expanding)
 
@@ -41,26 +41,36 @@ class MyMplCanvas(FigureCanvas):
 
     '''绘制静态图，可以在这里定义自己的绘图逻辑'''
 
-    def start_static_plot(self,datas={}):
-        self.fig.suptitle('工时数据分析')
+    def start_static_plot(self,datas={},name ='工时数据分析',xname = 'X轴',yname = 'Y轴'):
+        self.fig.suptitle(name)
         t = list(datas.keys())
         s = list(datas.values())
         self.axes.plot(t,s)
-        self.axes.set_ylabel('静态图：Y轴')
-        self.axes.set_xlabel('静态图：X轴')
+        self.axes.set_ylabel(yname)
+        self.axes.set_xlabel(xname)
         self.axes.grid(True)
         self.draw()
 
-    def start_static_plot(self,keys=[],values=[]):
-        plt.show()
+    def start_static_plot(self,keys=[],values=[],name ='工时数据分析',xname = 'X轴',yname = 'Y轴'):
+        self.fig.suptitle(name)
         t = keys[:]
         s = values[:]
-        # plt.bar(t,s)
-        # plt.show()
         self.axes.set_xticks(range(len(t)),t)
-        self.axes.plot(s)
-        self.axes.set_ylabel('静态图：Y轴')
-        self.axes.set_xlabel('静态图：X轴')
+        self.axes.bar(range(len(t)),s,color='b')
+        self.axes.set_ylabel(yname)
+        self.axes.set_xlabel(xname)
         self.axes.grid(True)
         self.draw()
+
+    def start_static_plots(self, keys=[], values1=[], values2=[], name='工时数据分析', xname='X轴', yname='Y轴'):
+        self.fig.suptitle(name)
+        t = keys[:]
+        self.axes.set_xticks(range(len(t)), t)
+        self.axes.bar(range(len(keys)), values1,color='b')
+        self.axes.bar(range(len(keys)), values2,color='r')
+        self.axes.set_ylabel(yname)
+        self.axes.set_xlabel(xname)
+        self.axes.grid(True)
+        self.draw()
+
 
