@@ -57,7 +57,6 @@ class TimeData():
             outTime.append(outDays)
             outTime.pop(0)
 
-            # 个人数据可视化
             x = list(range(len(normalTime.keys())))
             arrayall = np.array(list(allTime.values()))
             arraynormal = np.array(list(normalTime.values()))
@@ -66,13 +65,15 @@ class TimeData():
             # 计算个人100小时KPI
             array100h = arrayover + arrayout
 
-
-            #员工编号
+            # 员工编号
             self.arrayTimes.append(peopleOrg.keys())
-            #员工部门
+            # 员工部门
             self.arrayTimes.append(peopleOrg.values())
+            # 总工时
             self.arrayTimes.append(arrayall)
+            # 正常工时
             self.arrayTimes.append(arraynormal)
+            #
             self.arrayTimes.append(arrayover)
             self.arrayTimes.append(arrayout)
             return self.arrayTimes
