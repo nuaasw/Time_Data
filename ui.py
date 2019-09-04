@@ -25,6 +25,8 @@ class Ui_Dialog(QWidget):
         self.name = name
         self.dataResult = []
         self.orgPeople = {}
+        self.mpl = MyMplCanvas(self, width=5, height=4, dpi=100)
+        self.mpl_ntb = NavigationToolbar(self.mpl, self)  # 添加完整的 toolbar
         self.setupUi(Dialog)
         # print('test')
 
@@ -36,10 +38,6 @@ class Ui_Dialog(QWidget):
         Dialog.resize(800, 500)
 
         self.layout = QVBoxLayout(Dialog)
-        self.mpl = MyMplCanvas(self, width=5, height=4, dpi=100)
-        self.mpl.start_static_plot() # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
-        self.mpl_ntb = NavigationToolbar(self.mpl, self)  # 添加完整的 toolbar
-
         self.layout.addWidget(self.mpl)
         self.layout.addWidget(self.mpl_ntb)
 
@@ -90,9 +88,9 @@ class Ui_Dialog(QWidget):
         self.dataResult = dataays.timeDataAys()
         self.orgPeople = dataays.calOrgData(self.dataResult[1])
         self.showLabel.setText('数据预处理成功！')
-        dataays.getOrgImg(self.orgPeople)
-        self.mpl.start_static_plot() # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
-
+        # dataays.getOrgImg(self.orgPeople)
+        self.mpl.start_static_plot(self.orgPeople) # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
+        print('test')
         # self.lineedit_1.setText(self.orgPeople.value(1))
 
 if __name__=='__main__':

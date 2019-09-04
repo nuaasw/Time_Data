@@ -39,17 +39,18 @@ class MyMplCanvas(FigureCanvas):
         print('初始化成功！')
     '''绘制静态图，可以在这里定义自己的绘图逻辑'''
 
-    def start_static_plot(self):
+    def start_static_plot(self,datas={}):
 
-        self.fig.suptitle('测试静态图')
-        t = arange(0.0, 3.0, 0.01)
-        s = sin(2 * pi * t)
-        self.axes.plot(t, s)
+        self.fig.suptitle('工时数据分析')
+        # t = arange(0.0, 3.0, 0.01)
+        # s = sin(2 * pi * t)
+        t = list(datas.keys())
+        s = list(datas.values())
+        self.axes.bar(t,s)
         self.axes.set_ylabel('静态图：Y轴')
         self.axes.set_xlabel('静态图：X轴')
-        self.axes.grid(True)
-        print('初始化成功！')
-
+        # self.axes.grid(True)
+        self.draw()
 # class MatplotlibWidget(QWidget):
 #     def __init__(self, parent=None):
 #         super(MatplotlibWidget, self).__init__(parent)
