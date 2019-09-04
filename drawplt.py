@@ -30,15 +30,17 @@ class MyMplCanvas(FigureCanvas):
         self.setParent(parent)
 
         '''定义FigureCanvas的尺寸策略，这部分的意思是设置FigureCanvas，使之尽可能的向外填充空间。'''
-        FigureCanvas.setSizePolicy(self,
-                                   QSizePolicy.Expanding,
-                                   QSizePolicy.Expanding)
+        FigureCanvas.setSizePolicy(self,300,100)
+                                   # QSizePolicy.Expanding,
+                                   # QSizePolicy.Expanding)
+
         FigureCanvas.updateGeometry(self)
 
         print('初始化成功！')
     '''绘制静态图，可以在这里定义自己的绘图逻辑'''
 
     def start_static_plot(self):
+
         self.fig.suptitle('测试静态图')
         t = arange(0.0, 3.0, 0.01)
         s = sin(2 * pi * t)
@@ -56,9 +58,17 @@ class MyMplCanvas(FigureCanvas):
 #     def initUi(self):
 #         self.layout = QVBoxLayout(self)
 #         self.mpl = MyMplCanvas(self, width=5, height=4, dpi=100)
-#         # self.mpl.start_static_plot() # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
+#         self.mpl.start_static_plot() # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
 #         #self.mpl.start_dynamic_plot() # 如果你想要初始化的时候就呈现动态图，请把这行注释去掉
-#         self.mpl_ntb = NavigationToolbar(self.mpl, self)  # 添加完整的 toolbar
+#         # self.mpl_ntb = NavigationToolbar(self.mpl, self)  # 添加完整的 toolbar
 #
 #         self.layout.addWidget(self.mpl)
 #         self.layout.addWidget(self.mpl_ntb)
+
+
+# if __name__=='__main__':
+#     app = QApplication(sys.argv)
+#     ui = MatplotlibWidget()
+#     ui.mpl.start_static_plot()
+#     ui.show()
+#     sys.exit(app.exec_())

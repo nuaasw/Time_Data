@@ -20,22 +20,22 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 from base import TimeData as ays
 
 class Ui_Dialog(QWidget):
-    def __init__(self,name= ' ',parent=None):
+    def __init__(self,Dialog,name= ' ',parent=None):
         super(Ui_Dialog, self).__init__(parent)
-
         self.name = name
         self.dataResult = []
         self.orgPeople = {}
-
+        self.setupUi(Dialog)
+        # print('test')
 
     def setupUi(self, Dialog):
         """
         :type Dialog: object
         """
-        Dialog.setObjectName("Hello World!")
-        Dialog.resize(600, 400)
+        # Dialog.setObjectName("Hello World!")
+        Dialog.resize(800, 500)
 
-        self.layout = QVBoxLayout(self)
+        self.layout = QVBoxLayout(Dialog)
         self.mpl = MyMplCanvas(self, width=5, height=4, dpi=100)
         self.mpl.start_static_plot() # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
         self.mpl_ntb = NavigationToolbar(self.mpl, self)  # 添加完整的 toolbar
@@ -47,7 +47,7 @@ class Ui_Dialog(QWidget):
         self.allButton = button("&Calculate",Dialog)
 
         self.allButton.setFont(font('黑体',10))
-        self.allButton.setGeometry(QtCore.QRect(400,160,150,30))
+        self.allButton.setGeometry(QtCore.QRect(600,160,150,30))
         # dataays = ays('HelloTest')
 
         self.allButton.clicked.connect(self.testJob)
@@ -55,16 +55,16 @@ class Ui_Dialog(QWidget):
 
         self.closeButton = button("&Close",Dialog)
         self.closeButton.setFont(font('黑体',10))
-        self.closeButton.setGeometry(QtCore.QRect(400,200,150,30))
+        self.closeButton.setGeometry(QtCore.QRect(600,200,150,30))
         self.closeButton.clicked.connect(Dialog.close)
 
         self.showLabel = label(Dialog)
         self.showLabel.setText("Wait Operation!")
-        self.showLabel.setGeometry(QtCore.QRect(10,10,300,30))
+        self.showLabel.setGeometry(QtCore.QRect(10,20,300,30))
         self.showLabel.setFont(font('黑体',12))
 
         self.lineedit_1 = lineedit(Dialog)
-        self.lineedit_1.setGeometry(QtCore.QRect(400,120,150,30))
+        self.lineedit_1.setGeometry(QtCore.QRect(600,120,150,30))
         self.lineedit_1.setText('./test.csv')
 
         self.retranslateUi(Dialog)
@@ -91,11 +91,13 @@ class Ui_Dialog(QWidget):
         self.orgPeople = dataays.calOrgData(self.dataResult[1])
         self.showLabel.setText('数据预处理成功！')
         dataays.getOrgImg(self.orgPeople)
+        self.mpl.start_static_plot() # 如果你想要初始化的时候就呈现静态图，请把这行注释去掉
+
         # self.lineedit_1.setText(self.orgPeople.value(1))
 
 if __name__=='__main__':
     app = QtWidgets.QApplication(sys.argv)
     w = QtWidgets.QWidget()
-    ui = Ui_Dialog()
-    ui.setupUi(w)
+    Ui_Dialog(w)
+    # w.show()
     sys.exit(app.exec_())
