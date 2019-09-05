@@ -108,6 +108,8 @@ class Ui_Dialog(QWidget):
         self.outButton.setEnabled(True)
         self.kpiButton.setEnabled(True)
         self.mpl.start_static_plot(list(self.dataResult[0]),self.dataResult[2],'员工总工时数据','员工编号','总工时')
+        # test
+        dataays.calTimeDate(self.orgPeople,self.dataResult)
         print('test')
 
     def overDataJob(self):

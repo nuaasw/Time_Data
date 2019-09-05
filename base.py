@@ -105,69 +105,61 @@ class TimeData():
                 orgC += 1
             else:
                 orgD += 1
-        orgPeople = {}
-        orgPeople['Leader'] = leaders
-        orgPeople['LeaderAst'] = orgoffice
-        orgPeople['Part1'] = orgA
-        orgPeople['Part2'] = orgB
-        orgPeople['Part3'] = orgC
-        orgPeople['Part4'] = orgD
+        orgPeople = []
+        orgPeople.append(leaders)
+        orgPeople.append(orgoffice)
+        orgPeople.append(orgA)
+        orgPeople.append(orgB)
+        orgPeople.append(orgC)
+        orgPeople.append(orgD)
         return orgPeople
 
-    def getOrgImg(self,orgPeople={}):
-        plt.bar(orgPeople.keys(),orgPeople.values())
-        plt.show()
+    def calTimeDate(self,orgPeople=[],arrayData=[]):
+        # 得到各个部门的员工数
+        leaders = orgPeople[0]
+        orgoffice = orgPeople[1]
+        orgA = orgPeople[2]
+        orgB = orgPeople[3]
+        orgC = orgPeople[4]
+        orgD = orgPeople[5]
 
-
-    def calTimeDate(self,arrayData):
-        array100h = arrayData[2] + arrayData[3]
-        arrayall = arrayData[0]
-        # 计算平均出差工时数据
-        arrayMean = array100h.mean()
-        arrayMax = array100h.max()
-        print(arrayMean)
-        print(arrayMax)
-
-        plt.bar(x, arrayall)
-        plt.bar(x, array100h)
-        plt.plot([0, len(x)], [300, 300])
         orgSum = [leaders - 1, orgoffice + leaders - 1, orgA + orgoffice + leaders - 1, orgB + orgA + leaders - 1,
                   orgC + orgB + orgA + leaders - 1, orgD + orgC + orgB + orgA + leaders - 1]
-        # print(orgPeople)
 
+        arrayall = arrayData[2]
+        array100h = arrayData[4]+arrayData[5]
         # 绘制各部门总工时/加班工时/出差工时
+        partData = {}
         arrays = [arrayall, array100h]
         for array in arrays:
-            avgData = []
             # AAA部门
             arrayAAA = array[:orgSum[0] + 1]
             meanA = arrayAAA.mean()
-            avgData.append(meanA)
+            partData['Leader'] = meanA
             # AAA OFFICE
             arrayAAA00 = array[orgSum[0] + 1:orgSum[1] + 1]
             print(len(arrayAAA00))
             meanA0 = arrayAAA00.mean()
-            avgData.append(meanA0)
+            partData['Office']=meanA0
             # AAA-001部门
             arrayAAA01 = array[orgSum[1] + 1:orgSum[2] + 1]
             meanA1 = arrayAAA01.mean()
-            avgData.append(meanA1)
+            partData['Part1']=meanA1
             # AAA-002部门
             arrayAAA02 = array[orgSum[2] + 1:orgSum[3] + 1]
             meanA2 = arrayAAA02.mean()
-            avgData.append(meanA2)
+            partData['Part2']=meanA2
             # AAA-003部门
             arrayAAA03 = array[orgSum[3] + 1:orgSum[4] + 1]
             meanA3 = arrayAAA03.mean()
-            avgData.append(meanA3)
+            partData['Part3']=meanA3
             # AAA-004部门
             arrayAAA04 = array[orgSum[4] + 1:]
             meanA4 = arrayAAA04.mean()
-            avgData.append(meanA4)
+            partData['Part4']=meanA4
             # plt.plot(orgSum,avgData)
-            # plt.bar(list(orgPeople.keys()), avgData)
+            plt.bar(partData.keys(),partData.values())
             # plt.bar(list(range(len(avgData))), avgData, tick_label=list(range(len(avgData))))
-        # plt.save()
         plt.show()
 
 
