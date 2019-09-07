@@ -146,18 +146,18 @@ class Ui_Dialog(QWidget):
         self.mpl.start_static_plots(list(self.dataResult[0]), self.dataResult[2],self.dataResult[4]+self.dataResult[5], '员工KPI工时数据', '员工编号', 'KPI工时')
 
     def partAllData(self):
-        self.mpl.start_static_plot(list(self.partData[0]),self.partData[1],'部门总工时数据','部门编号','总工时')
+        self.mpl.start_static_plot(list(self.partData[0]),self.partData[1],'部门总工时数据','部门编号','总工时',1)
 
     def partOverData(self):
         # print(self.partData[0])
-        self.mpl.start_static_plots(self.partData[0],self.partData[1],self.partData[2],'部门加班工时数据','部门编号','加班工时')
+        self.mpl.start_static_plots(self.partData[0],self.partData[1],self.partData[2],'部门加班工时数据','部门编号','加班工时',1)
 
     def partOutData(self):
-        self.mpl.start_static_plots(self.partData[0],self.partData[1],self.partData[3],'部门出差工时数据','部门编号','加班工时')
+        self.mpl.start_static_plots(self.partData[0],self.partData[1],self.partData[3],'部门出差工时数据','部门编号','出差工时',1)
 
     def partKpiData(self):
         # print(self.partData[0])
-        self.mpl.start_static_plots(self.partData[0],self.partData[1],self.partData[3]+self.partData[4],'部门KPI工时数据','部门编号','KPI工时')
+        self.mpl.start_static_plots(self.partData[0],self.partData[1],self.partData[3]+self.partData[4],'部门KPI工时数据','部门编号','KPI工时',1)
 
 
 if __name__=='__main__':

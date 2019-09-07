@@ -51,13 +51,17 @@ class MyMplCanvas(FigureCanvas):
         self.axes.grid(True)
         self.draw()
 
-    def start_static_plot(self,keys=[],values=[],name ='工时数据分析',xname = 'X轴',yname = 'Y轴'):
+    def start_static_plot(self,keys=[],values=[],name ='工时数据分析',xname = 'X轴',yname = 'Y轴',type=0):
         self.axes.clear()
         self.fig.suptitle(name)
         t = keys[:]
         s = values[:]
-        self.axes.set_xticks(range(len(t)),t)
-        self.axes.bar(range(len(t)),s,color='b')
+        if type==0:
+            self.axes.set_xticks(range(len(t)),t)
+            self.axes.bar(range(len(t)),s,color='b')
+        else:
+            self.axes.set_xticks(range(len(t)), list(t))
+            self.axes.bar(t, values, color='b')
         # plt.bar(range(len(t)),s)
         # plt.show()
         self.axes.set_ylabel(yname)
@@ -65,13 +69,18 @@ class MyMplCanvas(FigureCanvas):
         self.axes.grid(True)
         self.draw()
 
-    def start_static_plots(self, keys=[], values1=[], values2=[], name='工时数据分析', xname='X轴', yname='Y轴'):
+    def start_static_plots(self, keys=[], values1=[], values2=[], name='工时数据分析', xname='X轴', yname='Y轴',type=0):
         self.axes.clear()
         self.fig.suptitle(name)
         t = keys[:]
-        self.axes.set_xticks(range(len(t)), t)
-        self.axes.bar(range(len(keys)), values1,color='b')
-        self.axes.bar(range(len(keys)), values2,color='r')
+        if type==0:
+            self.axes.set_xticks(range(len(t)), t)
+            self.axes.bar(range(len(keys)), values1, color='b')
+            self.axes.bar(range(len(keys)), values2, color='r')
+        else:
+            self.axes.set_xticks(range(len(t)), list(t))
+            self.axes.bar(t, values1, color='b')
+            self.axes.bar(t, values2, color='r')
         self.axes.set_ylabel(yname)
         self.axes.set_xlabel(xname)
         self.axes.grid(True)
