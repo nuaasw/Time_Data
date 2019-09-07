@@ -52,17 +52,21 @@ class MyMplCanvas(FigureCanvas):
         self.draw()
 
     def start_static_plot(self,keys=[],values=[],name ='工时数据分析',xname = 'X轴',yname = 'Y轴'):
+        self.axes.clear()
         self.fig.suptitle(name)
         t = keys[:]
         s = values[:]
         self.axes.set_xticks(range(len(t)),t)
         self.axes.bar(range(len(t)),s,color='b')
+        # plt.bar(range(len(t)),s)
+        # plt.show()
         self.axes.set_ylabel(yname)
         self.axes.set_xlabel(xname)
         self.axes.grid(True)
         self.draw()
 
     def start_static_plots(self, keys=[], values1=[], values2=[], name='工时数据分析', xname='X轴', yname='Y轴'):
+        self.axes.clear()
         self.fig.suptitle(name)
         t = keys[:]
         self.axes.set_xticks(range(len(t)), t)

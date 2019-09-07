@@ -126,41 +126,49 @@ class TimeData():
         orgSum = [leaders - 1, orgoffice + leaders - 1, orgA + orgoffice + leaders - 1, orgB + orgA + leaders - 1,
                   orgC + orgB + orgA + leaders - 1, orgD + orgC + orgB + orgA + leaders - 1]
 
-        arrayall = arrayData[2]
+        arrayAll = arrayData[2]
+        arrayOver = arrayData[4]
+        arrayOut = arrayData[5]
         array100h = arrayData[4]+arrayData[5]
         # 绘制各部门总工时/加班工时/出差工时
-        partData = {}
-        arrays = [arrayall, array100h]
+        partDatas = []
+        partNames = ['Leaders','Office','Part1','Part2','Part3','Part4']
+        print(partDatas)
+        partDatas.append(partNames)
+        arrays = [arrayAll, arrayOver, arrayOut, array100h]
         for array in arrays:
+            partData = []
+            partData.clear()
             # AAA部门
             arrayAAA = array[:orgSum[0] + 1]
             meanA = arrayAAA.mean()
-            partData['Leader'] = meanA
+            partData.append(meanA)
             # AAA OFFICE
             arrayAAA00 = array[orgSum[0] + 1:orgSum[1] + 1]
             print(len(arrayAAA00))
             meanA0 = arrayAAA00.mean()
-            partData['Office']=meanA0
+            partData.append(meanA0)
             # AAA-001部门
             arrayAAA01 = array[orgSum[1] + 1:orgSum[2] + 1]
             meanA1 = arrayAAA01.mean()
-            partData['Part1']=meanA1
+            partData.append(meanA1)
             # AAA-002部门
             arrayAAA02 = array[orgSum[2] + 1:orgSum[3] + 1]
             meanA2 = arrayAAA02.mean()
-            partData['Part2']=meanA2
+            partData.append(meanA2)
             # AAA-003部门
             arrayAAA03 = array[orgSum[3] + 1:orgSum[4] + 1]
             meanA3 = arrayAAA03.mean()
-            partData['Part3']=meanA3
+            partData.append(meanA3)
             # AAA-004部门
             arrayAAA04 = array[orgSum[4] + 1:]
             meanA4 = arrayAAA04.mean()
-            partData['Part4']=meanA4
-            # plt.plot(orgSum,avgData)
-            plt.bar(partData.keys(),partData.values())
-            # plt.bar(list(range(len(avgData))), avgData, tick_label=list(range(len(avgData))))
-        plt.show()
+            partData.append(meanA4)
+            # 累计
+            partDatas.append(np.array(partData))
+        print(partDatas)
+        return partDatas
+
 
 
 
