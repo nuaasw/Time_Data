@@ -27,7 +27,7 @@ class Ui_Dialog(QWidget):
         self.overData = []
         self.partData = []
         self.orgPeople = {}
-        self.mpl = MyMplCanvas(self, width=5.5, height=4, dpi=150)
+        self.mpl = MyMplCanvas(self, width=5.5, height=4, dpi=160)
         self.mpl_ntb = NavigationToolbar(self.mpl, self)  # 添加完整的 toolbar
         self.setupUi(Dialog)
         # print('test')
@@ -51,59 +51,74 @@ class Ui_Dialog(QWidget):
         # self.lineedit_1 = lineedit(Dialog)
         # self.lineedit_1.setGeometry(QtCore.QRect(900, 100, 150, 30))
         # self.lineedit_1.setText('./test.csv')
-
+        x=60
 
         self.allButton = button("总工时数据",Dialog)
         self.allButton.setFont(font('黑体',10))
-        self.allButton.setGeometry(QtCore.QRect(900,80,150,40))
+        self.allButton.setGeometry(QtCore.QRect(900,80-x,150,40))
         self.allButton.clicked.connect(self.allDataJob)
 
         self.overButton = button("员工加班工时",Dialog)
         self.overButton.setEnabled(False)
         self.overButton.setFont(font('黑体', 10))
-        self.overButton.setGeometry(QtCore.QRect(900, 140, 150, 40))
+        self.overButton.setGeometry(QtCore.QRect(900, 140-x, 150, 40))
         self.overButton.clicked.connect(self.overDataJob)
 
         self.outButton = button("员工出差工时",Dialog)
         self.outButton.setEnabled(False)
         self.outButton.setFont(font('黑体', 10))
-        self.outButton.setGeometry(QtCore.QRect(900, 200, 150, 40))
+        self.outButton.setGeometry(QtCore.QRect(900, 200-x, 150, 40))
         self.outButton.clicked.connect(self.outDataJob)
 
 
         self.kpiButton = button("员工KPI100H",Dialog)
         self.kpiButton.setEnabled(False)
         self.kpiButton.setFont(font('黑体', 10))
-        self.kpiButton.setGeometry(QtCore.QRect(900, 260, 150, 40))
+        self.kpiButton.setGeometry(QtCore.QRect(900, 260-x, 150, 40))
         self.kpiButton.clicked.connect(self.kpiDataJob)
 
         self.avgPartAllButton = button("部门人均总工时",Dialog)
         # self.avgPartAllButton.setEnabled(False)
         self.avgPartAllButton.setFont(font('黑体',10))
-        self.avgPartAllButton.setGeometry(QtCore.QRect(900, 320, 150, 40))
+        self.avgPartAllButton.setGeometry(QtCore.QRect(900, 320-x, 150, 40))
         self.avgPartAllButton.clicked.connect(self.partAllData)
 
         self.avgPartOverButton = button("部门人均加班工时", Dialog)
         # self.avgPartOverButton.setEnabled(False)
         self.avgPartOverButton.setFont(font('黑体', 10))
-        self.avgPartOverButton.setGeometry(QtCore.QRect(900, 380, 150, 40))
+        self.avgPartOverButton.setGeometry(QtCore.QRect(900, 380-x, 150, 40))
         self.avgPartOverButton.clicked.connect(self.partOverData)
 
         self.avgPartOutButton = button("部门人均出差工时", Dialog)
         # self.avgPartOutButton.setEnabled(False)
         self.avgPartOutButton.setFont(font('黑体', 10))
-        self.avgPartOutButton.setGeometry(QtCore.QRect(900, 440, 150, 40))
+        self.avgPartOutButton.setGeometry(QtCore.QRect(900, 440-x, 150, 40))
         self.avgPartOutButton.clicked.connect(self.partOutData)
 
         self.avgPartKpiButton = button("部门KPI100h工时", Dialog)
         # self.avgPartKpiButton.setEnabled(False)
         self.avgPartKpiButton.setFont(font('黑体', 10))
-        self.avgPartKpiButton.setGeometry(QtCore.QRect(900, 500, 150, 40))
+        self.avgPartKpiButton.setGeometry(QtCore.QRect(900, 500-x, 150, 40))
         self.avgPartKpiButton.clicked.connect(self.partKpiData)
+
+        self.projectAllButton = button("项目总工时",Dialog)
+        self.projectAllButton.setEnabled(False)
+        self.projectAllButton.setFont(font('黑体',10))
+        self.projectAllButton.setGeometry(QtCore.QRect(900, 560-x, 150, 40))
+
+        self.projectOverButton = button("项目总工时", Dialog)
+        self.projectOverButton.setEnabled(False)
+        self.projectOverButton.setFont(font('黑体', 10))
+        self.projectOverButton.setGeometry(QtCore.QRect(900, 620-x, 150, 40))
+
+        self.projectOutButton = button("项目出差工时", Dialog)
+        self.projectOutButton.setEnabled(False)
+        self.projectOutButton.setFont(font('黑体', 10))
+        self.projectOutButton.setGeometry(QtCore.QRect(900, 680-x, 150, 40))
 
         self.closeButton = button("&关闭",Dialog)
         self.closeButton.setFont(font('黑体',10))
-        self.closeButton.setGeometry(QtCore.QRect(900,560,150,40))
+        self.closeButton.setGeometry(QtCore.QRect(900,740-x,150,40))
         self.closeButton.clicked.connect(Dialog.close)
 
 
