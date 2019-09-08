@@ -51,7 +51,7 @@ class Ui_Dialog(QWidget):
         # self.lineedit_1 = lineedit(Dialog)
         # self.lineedit_1.setGeometry(QtCore.QRect(900, 100, 150, 30))
         # self.lineedit_1.setText('./test.csv')
-        x=60
+        x=70
 
         self.allButton = button("总工时数据",Dialog)
         self.allButton.setFont(font('黑体',10))
